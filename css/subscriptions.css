@@ -1,0 +1,341 @@
+/* =========================================================
+   FinanceFlow — Subscriptions Styles
+   File: css/subscriptions.css
+   ========================================================= */
+
+.subscription-list {
+  display: grid;
+  gap: 14px;
+}
+
+.subscription-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 14px;
+  padding: 16px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at top left, rgba(124, 58, 237, 0.14), transparent 34%),
+    var(--surface-soft);
+  transition: transform var(--ease), border-color var(--ease), box-shadow var(--ease);
+}
+
+.subscription-card:hover {
+  transform: translateY(-3px);
+  border-color: var(--border-strong);
+  box-shadow: var(--glow-violet);
+}
+
+.subscription-card.duplicate-warning {
+  border-color: rgba(255, 209, 102, 0.35);
+  box-shadow: 0 0 30px rgba(255, 209, 102, 0.14);
+}
+
+.subscription-main {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px;
+}
+
+.subscription-icon {
+  width: 48px;
+  height: 48px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 18px;
+  background: var(--surface);
+  font-size: 1.35rem;
+}
+
+.subscription-info strong {
+  display: block;
+  margin-bottom: 4px;
+  font-size: 1rem;
+}
+
+.subscription-info small {
+  color: var(--muted);
+  font-weight: 850;
+}
+
+.subscription-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.subscription-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 28px;
+  padding: 5px 9px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text-soft);
+  font-size: 0.74rem;
+  font-weight: 950;
+}
+
+.subscription-pill.autopay {
+  border-color: rgba(0, 255, 178, 0.24);
+  background: rgba(0, 255, 178, 0.09);
+  color: var(--green);
+}
+
+.subscription-pill.manual {
+  border-color: rgba(255, 209, 102, 0.26);
+  background: rgba(255, 209, 102, 0.1);
+  color: var(--yellow);
+}
+
+.subscription-cost {
+  text-align: right;
+}
+
+.subscription-cost strong {
+  display: block;
+  font-size: 1.35rem;
+  letter-spacing: -0.05em;
+}
+
+.subscription-cost span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+.subscription-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.duplicate-alert {
+  grid-column: 1 / -1;
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 12px;
+  border: 1px solid rgba(255, 209, 102, 0.28);
+  border-radius: var(--radius-md);
+  background: rgba(255, 209, 102, 0.1);
+  color: var(--yellow);
+  font-size: 0.84rem;
+  font-weight: 850;
+  line-height: 1.45;
+}
+
+/* ---------- Upcoming Billing ---------- */
+
+.billing-countdown {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 30px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgba(79, 142, 247, 0.12);
+  border: 1px solid rgba(79, 142, 247, 0.22);
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 950;
+}
+
+.billing-countdown.due-soon {
+  background: rgba(255, 209, 102, 0.1);
+  border-color: rgba(255, 209, 102, 0.26);
+  color: var(--yellow);
+}
+
+.billing-countdown.overdue {
+  background: rgba(255, 71, 87, 0.11);
+  border-color: rgba(255, 71, 87, 0.28);
+  color: #ff9aa4;
+}
+
+/* ---------- Subscription Form ---------- */
+
+.subscription-form {
+  display: grid;
+  gap: 12px;
+}
+
+.subscription-service-preview {
+  display: flex;
+  align-items: center;
+  gap: 11px;
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.subscription-service-preview span {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 16px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  font-size: 1.2rem;
+}
+
+.subscription-service-preview strong {
+  display: block;
+  margin-bottom: 3px;
+}
+
+.subscription-service-preview small {
+  color: var(--muted);
+  font-weight: 800;
+}
+
+.billing-cycle-selector {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 9px;
+}
+
+.billing-cycle-option {
+  min-height: 42px;
+  border: 1px solid var(--border);
+  border-radius: 15px;
+  background: var(--surface);
+  color: var(--text-soft);
+  font-weight: 950;
+  transition: background var(--ease), border-color var(--ease), color var(--ease), transform var(--ease);
+}
+
+.billing-cycle-option:hover {
+  transform: translateY(-2px);
+}
+
+.billing-cycle-option.active {
+  color: white;
+  border-color: transparent;
+  background: var(--gradient-main);
+  box-shadow: var(--glow-blue);
+}
+
+/* ---------- Auto Pay Toggle Row ---------- */
+
+.autopay-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 13px;
+  margin-top: 4px;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.autopay-row span {
+  color: var(--text-soft);
+  font-weight: 850;
+  font-size: 0.86rem;
+}
+
+/* ---------- Subscription Empty State ---------- */
+
+.subscription-empty {
+  padding: 38px 18px;
+  text-align: center;
+  border: 1px dashed var(--border);
+  border-radius: var(--radius-xl);
+  background: var(--surface-soft);
+}
+
+.subscription-empty-icon {
+  width: 68px;
+  height: 68px;
+  margin: 0 auto 14px;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--border);
+  border-radius: 25px;
+  background: var(--surface);
+  font-size: 1.9rem;
+}
+
+.subscription-empty h3 {
+  margin: 0 0 8px;
+}
+
+.subscription-empty p {
+  max-width: 470px;
+  margin: 0 auto 16px;
+  color: var(--muted);
+  line-height: 1.55;
+}
+
+/* ---------- Cost Breakdown ---------- */
+
+.subscription-breakdown {
+  display: grid;
+  gap: 11px;
+  margin-top: 16px;
+}
+
+.subscription-breakdown-row {
+  display: grid;
+  grid-template-columns: 1fr 90px;
+  gap: 12px;
+  align-items: center;
+}
+
+.subscription-breakdown-row strong {
+  color: var(--text-soft);
+  font-size: 0.84rem;
+}
+
+.subscription-breakdown-row span {
+  text-align: right;
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.subscription-breakdown-track {
+  grid-column: 1 / -1;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.subscription-breakdown-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--gradient-main);
+  transition: width 850ms ease;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 760px) {
+  .subscription-card {
+    grid-template-columns: 1fr;
+  }
+
+  .subscription-cost {
+    text-align: left;
+  }
+
+  .subscription-actions {
+    justify-content: flex-start;
+  }
+
+  .billing-cycle-selector {
+    grid-template-columns: 1fr;
+  }
+}

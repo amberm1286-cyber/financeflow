@@ -1,0 +1,255 @@
+/* =========================================================
+   FinanceFlow — Reports Styles
+   File: css/reports.css
+   ========================================================= */
+
+.reports-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.report-card {
+  min-height: 250px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.report-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.35rem;
+  letter-spacing: -0.04em;
+}
+
+.report-card p {
+  margin: 0 0 18px;
+  color: var(--text-soft);
+  line-height: 1.55;
+  font-weight: 750;
+}
+
+.report-card input {
+  margin-bottom: 10px;
+}
+
+/* ---------- Report Preview ---------- */
+
+.report-preview {
+  margin-top: 18px;
+  padding: 18px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background:
+    radial-gradient(circle at top left, rgba(79, 142, 247, 0.12), transparent 34%),
+    var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.report-preview-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  margin-bottom: 16px;
+}
+
+.report-preview-head h3 {
+  margin: 0;
+}
+
+.report-preview-head span {
+  color: var(--muted);
+  font-size: 0.84rem;
+  font-weight: 900;
+}
+
+.report-preview-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 11px;
+}
+
+.report-preview-metric {
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.report-preview-metric span {
+  display: block;
+  margin-bottom: 6px;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 950;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.report-preview-metric strong {
+  font-size: 1.2rem;
+  letter-spacing: -0.04em;
+}
+
+/* ---------- PDF Generation Loading ---------- */
+
+#reportLoading {
+  justify-content: center;
+  min-height: 120px;
+  text-align: center;
+}
+
+#reportLoading p {
+  margin: 0;
+  color: var(--text-soft);
+  font-weight: 850;
+}
+
+/* ---------- Report Status ---------- */
+
+.report-status {
+  margin-top: 16px;
+  padding: 14px;
+  border-radius: var(--radius-lg);
+  border: 1px solid rgba(0, 255, 178, 0.25);
+  background: rgba(0, 255, 178, 0.09);
+  color: var(--green);
+  font-weight: 900;
+  line-height: 1.45;
+}
+
+.report-status.error {
+  border-color: rgba(255, 71, 87, 0.28);
+  background: rgba(255, 71, 87, 0.1);
+  color: #ff9aa4;
+}
+
+/* ---------- Report Range Summary ---------- */
+
+.report-range-summary {
+  margin-top: 14px;
+  display: grid;
+  gap: 10px;
+}
+
+.report-range-row {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: center;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.report-range-row strong {
+  font-size: 0.9rem;
+}
+
+.report-range-row span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 850;
+}
+
+.report-range-row .positive {
+  color: var(--green);
+}
+
+.report-range-row .negative {
+  color: var(--red);
+}
+
+/* ---------- PDF Export Animation ---------- */
+
+.report-exporting {
+  position: relative;
+  overflow: hidden;
+}
+
+.report-exporting::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(
+    110deg,
+    transparent 0%,
+    rgba(79, 142, 247, 0.16) 45%,
+    rgba(124, 58, 237, 0.2) 55%,
+    transparent 100%
+  );
+  transform: translateX(-120%);
+  animation: reportShimmer 1.2s ease-in-out infinite;
+}
+
+@keyframes reportShimmer {
+  to {
+    transform: translateX(120%);
+  }
+}
+
+/* ---------- PDF Feature List ---------- */
+
+.report-feature-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.report-feature {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  padding: 11px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.report-feature span {
+  width: 32px;
+  height: 32px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: var(--surface);
+  flex: 0 0 auto;
+}
+
+.report-feature strong {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 0.88rem;
+}
+
+.report-feature p {
+  margin: 0;
+  color: var(--muted);
+  font-size: 0.8rem;
+  line-height: 1.4;
+}
+
+/* ---------- Responsive ---------- */
+
+@media (max-width: 900px) {
+  .reports-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .report-preview-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 560px) {
+  .report-preview-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .report-preview-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}

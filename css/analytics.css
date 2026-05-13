@@ -1,0 +1,498 @@
+/* =========================================================
+   FinanceFlow — Analytics Styles
+   File: css/analytics.css
+   ========================================================= */
+
+.analytics-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.analytics-grid .glass-card {
+  min-height: 330px;
+}
+
+.chart-box {
+  position: relative;
+  min-height: 260px;
+  display: grid;
+  place-items: center;
+}
+
+.analytics-grid canvas {
+  width: 100% !important;
+  min-height: 260px !important;
+}
+
+/* ---------- Heatmap ---------- */
+.heatmap {
+  display: grid;
+  gap: 8px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+}
+
+.heatmap-header {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(34px, 1fr));
+  gap: 7px;
+  min-width: 520px;
+}
+
+.heatmap-header span {
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 950;
+  text-align: center;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.heatmap-grid {
+  display: grid;
+  grid-template-columns: repeat(7, minmax(34px, 1fr));
+  gap: 7px;
+  min-width: 520px;
+}
+
+.heatmap-cell {
+  aspect-ratio: 1;
+  border: 1px solid var(--border);
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.045);
+  display: grid;
+  place-items: center;
+  color: var(--muted);
+  font-size: 0.72rem;
+  font-weight: 900;
+  transition: transform var(--ease), border-color var(--ease), box-shadow var(--ease);
+}
+
+.heatmap-cell:hover {
+  transform: translateY(-3px) scale(1.04);
+  border-color: var(--border-strong);
+  box-shadow: var(--glow-blue);
+}
+
+.heatmap-cell.level-0 {
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.heatmap-cell.level-1 {
+  background: rgba(79, 142, 247, 0.18);
+  color: #dce9ff;
+}
+
+.heatmap-cell.level-2 {
+  background: rgba(79, 142, 247, 0.34);
+  color: white;
+}
+
+.heatmap-cell.level-3 {
+  background: rgba(124, 58, 237, 0.46);
+  color: white;
+}
+
+.heatmap-cell.level-4 {
+  background: rgba(255, 71, 87, 0.62);
+  color: white;
+}
+
+.heatmap-legend {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 7px;
+  margin-top: 10px;
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.heatmap-legend-box {
+  width: 18px;
+  height: 18px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+}
+
+/* ---------- Donut Chart ---------- */
+.donut-wrap {
+  width: min(260px, 100%);
+  position: relative;
+  display: grid;
+  place-items: center;
+}
+
+.donut-svg {
+  width: 240px;
+  height: 240px;
+  transform: rotate(-90deg);
+  overflow: visible;
+}
+
+.donut-segment {
+  fill: none;
+  stroke-width: 26;
+  stroke-linecap: round;
+  transition: stroke-dasharray 700ms ease, stroke-dashoffset 700ms ease, opacity var(--ease);
+  cursor: pointer;
+}
+
+.donut-segment:hover {
+  opacity: 0.78;
+  filter: drop-shadow(0 0 10px rgba(79, 142, 247, 0.55));
+}
+
+.donut-center {
+  position: absolute;
+  text-align: center;
+}
+
+.donut-center strong {
+  display: block;
+  font-size: 1.65rem;
+  letter-spacing: -0.06em;
+}
+
+.donut-center span {
+  color: var(--muted);
+  font-size: 0.76rem;
+  font-weight: 900;
+}
+
+.chart-legend {
+  display: grid;
+  gap: 8px;
+  width: 100%;
+  margin-top: 16px;
+}
+
+.legend-item {
+  display: grid;
+  grid-template-columns: 14px 1fr auto;
+  gap: 9px;
+  align-items: center;
+  padding: 8px 10px;
+  border: 1px solid var(--border);
+  border-radius: 13px;
+  background: var(--surface-soft);
+  cursor: pointer;
+  transition: transform var(--ease), background var(--ease);
+}
+
+.legend-item:hover {
+  transform: translateX(3px);
+  background: var(--surface-strong);
+}
+
+.legend-dot {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+}
+
+.legend-item strong {
+  font-size: 0.82rem;
+}
+
+.legend-item span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+/* ---------- SVG Line Chart ---------- */
+.line-chart-svg,
+.trend-svg,
+.bar-svg,
+.radar-svg {
+  width: 100%;
+  height: 260px;
+  overflow: visible;
+}
+
+.chart-grid-line {
+  stroke: rgba(255, 255, 255, 0.08);
+  stroke-width: 1;
+}
+
+.chart-axis-label {
+  fill: var(--muted);
+  font-size: 11px;
+  font-weight: 800;
+}
+
+.trend-area {
+  fill: url(#trendGradient);
+  opacity: 0.32;
+}
+
+.trend-line {
+  fill: none;
+  stroke: var(--blue);
+  stroke-width: 4;
+  stroke-linecap: round;
+  filter: drop-shadow(0 0 10px rgba(79, 142, 247, 0.55));
+  stroke-dasharray: 900;
+  stroke-dashoffset: 900;
+  animation: drawLine 1.1s ease forwards;
+}
+
+@keyframes drawLine {
+  to {
+    stroke-dashoffset: 0;
+  }
+}
+
+.trend-point {
+  fill: var(--green);
+  stroke: var(--bg);
+  stroke-width: 3;
+  cursor: pointer;
+  transition: r var(--ease), filter var(--ease);
+}
+
+.trend-point:hover {
+  r: 7;
+  filter: drop-shadow(0 0 10px rgba(0, 255, 178, 0.75));
+}
+
+/* ---------- Custom Bar Chart Support ---------- */
+.custom-bar-chart {
+  width: 100%;
+  min-height: 260px;
+}
+
+.bar-group {
+  transition: opacity var(--ease), transform var(--ease);
+}
+
+.bar-group:hover {
+  opacity: 0.78;
+  transform: translateY(-2px);
+}
+
+.bar-income {
+  fill: var(--green);
+  filter: drop-shadow(0 0 8px rgba(0, 255, 178, 0.28));
+}
+
+.bar-expense {
+  fill: var(--red);
+  filter: drop-shadow(0 0 8px rgba(255, 71, 87, 0.28));
+}
+
+.chart-bar {
+  transform-origin: bottom;
+  animation: barGrow 900ms ease both;
+}
+
+@keyframes barGrow {
+  from {
+    transform: scaleY(0);
+  }
+
+  to {
+    transform: scaleY(1);
+  }
+}
+
+/* ---------- Radar Chart ---------- */
+.radar-wrap {
+  width: 100%;
+  display: grid;
+  place-items: center;
+}
+
+.radar-grid {
+  fill: none;
+  stroke: rgba(255, 255, 255, 0.1);
+  stroke-width: 1;
+}
+
+.radar-axis {
+  stroke: rgba(255, 255, 255, 0.09);
+  stroke-width: 1;
+}
+
+.radar-area {
+  fill: rgba(124, 58, 237, 0.28);
+  stroke: var(--violet);
+  stroke-width: 3;
+  filter: drop-shadow(0 0 12px rgba(124, 58, 237, 0.4));
+}
+
+.radar-point {
+  fill: var(--green);
+  stroke: var(--bg);
+  stroke-width: 3;
+}
+
+.radar-label {
+  fill: var(--text-soft);
+  font-size: 12px;
+  font-weight: 900;
+}
+
+/* ---------- Range Comparison ---------- */
+.compare-form {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 11px;
+}
+
+.compare-form .btn {
+  grid-column: 1 / -1;
+}
+
+.range-result {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.range-card {
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.range-card-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 8px;
+}
+
+.range-card strong {
+  font-size: 0.9rem;
+}
+
+.range-card span {
+  color: var(--muted);
+  font-size: 0.78rem;
+  font-weight: 850;
+}
+
+.range-value {
+  font-size: 1.45rem;
+  font-weight: 950;
+  letter-spacing: -0.05em;
+}
+
+.range-diff {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 8px;
+  padding: 6px 9px;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 950;
+}
+
+.range-diff.good {
+  background: rgba(0, 255, 178, 0.12);
+  color: var(--green);
+}
+
+.range-diff.bad {
+  background: rgba(255, 71, 87, 0.12);
+  color: var(--red);
+}
+
+/* ---------- AI Insights Panel in Analytics ---------- */
+.analytics-insights-panel {
+  display: grid;
+  gap: 10px;
+}
+
+.analytics-insight {
+  padding: 13px;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border);
+  background: var(--surface-soft);
+}
+
+.analytics-insight.info {
+  border-color: rgba(79, 142, 247, 0.25);
+}
+
+.analytics-insight.warning {
+  border-color: rgba(255, 209, 102, 0.28);
+}
+
+.analytics-insight.success {
+  border-color: rgba(0, 255, 178, 0.24);
+}
+
+.analytics-insight strong {
+  display: block;
+  margin-bottom: 4px;
+}
+
+.analytics-insight p {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.84rem;
+  line-height: 1.45;
+}
+
+/* ---------- Chart Export Preview ---------- */
+.export-flash {
+  animation: exportFlash 600ms ease;
+}
+
+@keyframes exportFlash {
+  0% {
+    box-shadow: 0 0 0 rgba(0, 255, 178, 0);
+  }
+
+  45% {
+    box-shadow: 0 0 42px rgba(0, 255, 178, 0.28);
+  }
+
+  100% {
+    box-shadow: 0 0 0 rgba(0, 255, 178, 0);
+  }
+}
+
+/* ---------- Responsive ---------- */
+@media (max-width: 1100px) {
+  .analytics-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .wide-card {
+    grid-column: span 1;
+  }
+}
+
+@media (max-width: 720px) {
+  .analytics-grid .glass-card {
+    min-height: auto;
+  }
+
+  .chart-box {
+    min-height: 230px;
+  }
+
+  .analytics-grid canvas {
+    min-height: 230px !important;
+  }
+
+  .compare-form {
+    grid-template-columns: 1fr;
+  }
+
+  .heatmap-header,
+  .heatmap-grid {
+    min-width: 460px;
+  }
+
+  .heatmap-cell {
+    border-radius: 8px;
+  }
+}

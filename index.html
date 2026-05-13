@@ -1,0 +1,659 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>FinanceFlow | Smart Personal Finance Platform</title>
+  <meta
+    name="description"
+    content="FinanceFlow is a smart personal finance, budgeting, analytics, subscriptions, savings goals, and reporting web app."
+  />
+
+  <!-- Google Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap"
+    rel="stylesheet"
+  />
+
+  <!-- CSS Files -->
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/dashboard.css" />
+  <link rel="stylesheet" href="css/transactions.css" />
+  <link rel="stylesheet" href="css/analytics.css" />
+  <link rel="stylesheet" href="css/budget.css" />
+  <link rel="stylesheet" href="css/goals.css" />
+  <link rel="stylesheet" href="css/subscriptions.css" />
+  <link rel="stylesheet" href="css/reports.css" />
+  <link rel="stylesheet" href="css/settings.css" />
+  <link rel="stylesheet" href="css/responsive.css" />
+
+  <!-- Libraries -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/jspdf@2.5.1/dist/jspdf.umd.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.3/dist/confetti.browser.min.js"></script>
+</head>
+
+<body>
+  <div class="app-shell">
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="brand">
+        <div class="brand-logo" aria-label="FinanceFlow logo">
+          <svg viewBox="0 0 64 64" class="logo-svg">
+            <defs>
+              <linearGradient id="logoGradient" x1="0" x2="1" y1="0" y2="1">
+                <stop offset="0%" stop-color="#4F8EF7" />
+                <stop offset="100%" stop-color="#7C3AED" />
+              </linearGradient>
+            </defs>
+            <circle cx="32" cy="32" r="27" fill="url(#logoGradient)" opacity="0.24" />
+            <path
+              d="M18 37C24 24 34 46 46 25"
+              fill="none"
+              stroke="url(#logoGradient)"
+              stroke-width="6"
+              stroke-linecap="round"
+            />
+            <circle cx="18" cy="37" r="4" fill="#00FFB2" />
+            <circle cx="46" cy="25" r="4" fill="#00FFB2" />
+          </svg>
+        </div>
+        <div>
+          <h1>FinanceFlow</h1>
+          <p>Budget Intelligence</p>
+        </div>
+      </div>
+
+      <nav class="side-nav" aria-label="Main navigation">
+        <button class="nav-link active" data-page="dashboard">
+          <span>🏠</span> Dashboard
+        </button>
+        <button class="nav-link" data-page="transactions">
+          <span>💸</span> Transactions
+        </button>
+        <button class="nav-link" data-page="analytics">
+          <span>📊</span> Analytics
+        </button>
+        <button class="nav-link" data-page="budget">
+          <span>💰</span> Budget
+        </button>
+        <button class="nav-link" data-page="goals">
+          <span>🎯</span> Goals
+        </button>
+        <button class="nav-link" data-page="subscriptions">
+          <span>🔄</span> Subscriptions
+        </button>
+        <button class="nav-link" data-page="reports">
+          <span>📄</span> Reports
+        </button>
+        <button class="nav-link" data-page="settings">
+          <span>⚙️</span> Settings
+        </button>
+      </nav>
+
+      <div class="sidebar-card">
+        <p class="muted">Sync Status</p>
+        <div class="sync-line">
+          <span class="sync-dot" id="syncDot"></span>
+          <strong id="syncStatusText">Synced</strong>
+        </div>
+        <small id="lastSyncedText">Last synced: just now</small>
+        <button class="btn btn-small" id="syncNowBtn">Sync Now</button>
+      </div>
+    </aside>
+
+    <!-- MAIN AREA -->
+    <main class="main-content">
+      <!-- TOPBAR -->
+      <header class="topbar">
+        <div>
+          <p class="eyebrow">Smart Personal Finance</p>
+          <h2 id="pageTitle">Dashboard</h2>
+        </div>
+
+        <div class="topbar-actions">
+          <button class="icon-btn" id="currencyWidgetBtn" title="Currency converter">
+            💱
+          </button>
+
+          <button class="icon-btn notification-btn" id="notificationBtn" title="Notifications">
+            🔔
+            <span class="badge" id="notificationBadge">0</span>
+          </button>
+
+          <button class="theme-toggle" id="themeToggle" title="Toggle theme">
+            <span id="themeIcon">🌙</span>
+          </button>
+
+          <div class="profile-pill">
+            <span id="profileAvatar">🧑‍💻</span>
+            <span id="profileName">Amber</span>
+          </div>
+        </div>
+      </header>
+
+      <!-- DASHBOARD -->
+      <section class="page active" id="page-dashboard">
+        <div class="summary-grid">
+          <article class="stat-card">
+            <p>Total Balance</p>
+            <h3 id="totalBalance">₹0</h3>
+            <span class="positive">Live net position</span>
+          </article>
+          <article class="stat-card">
+            <p>Monthly Income</p>
+            <h3 id="monthlyIncome">₹0</h3>
+            <span class="positive">This month</span>
+          </article>
+          <article class="stat-card">
+            <p>Monthly Expenses</p>
+            <h3 id="monthlyExpenses">₹0</h3>
+            <span class="negative">This month</span>
+          </article>
+          <article class="stat-card">
+            <p>Net Savings</p>
+            <h3 id="netSavings">₹0</h3>
+            <span id="savingsRateText">0% savings rate</span>
+          </article>
+        </div>
+
+        <div class="dashboard-grid">
+          <article class="glass-card score-card">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">Financial Health</p>
+                <h3>Finance Score</h3>
+              </div>
+              <button class="btn btn-small" id="scoreDetailsBtn">Breakdown</button>
+            </div>
+
+            <div class="score-gauge-wrap">
+              <svg class="score-gauge" viewBox="0 0 220 140">
+                <path
+                  class="gauge-bg"
+                  d="M30 120 A80 80 0 0 1 190 120"
+                ></path>
+                <path
+                  class="gauge-fill"
+                  id="scoreGaugeFill"
+                  d="M30 120 A80 80 0 0 1 190 120"
+                ></path>
+              </svg>
+              <div class="score-value">
+                <strong id="financeScore">0</strong>
+                <span id="scoreBadge">Loading</span>
+              </div>
+            </div>
+          </article>
+
+          <article class="glass-card insight-card">
+            <div class="section-head">
+              <div>
+                <p class="eyebrow">AI Insight</p>
+                <h3>Smart Observation</h3>
+              </div>
+              <button class="btn btn-small" id="refreshInsightsBtn">Refresh</button>
+            </div>
+            <div id="aiInsightBanner" class="ai-banner">
+              Analyzing your spending pattern...
+            </div>
+            <div id="insightList" class="insight-list"></div>
+          </article>
+
+          <article class="glass-card">
+            <div class="section-head">
+              <h3>Today's Summary</h3>
+              <span id="todayTotal">₹0</span>
+            </div>
+            <div id="todayTransactions" class="mini-list"></div>
+          </article>
+
+          <article class="glass-card">
+            <div class="section-head">
+              <h3>Top Categories</h3>
+              <span>This month</span>
+            </div>
+            <div id="topCategories" class="bar-list"></div>
+          </article>
+
+          <article class="glass-card">
+            <div class="section-head">
+              <h3>Upcoming Bills</h3>
+              <span>Next 7 days</span>
+            </div>
+            <div id="upcomingBills" class="mini-list"></div>
+          </article>
+
+          <article class="glass-card">
+            <div class="section-head">
+              <h3>Budget Burn Rate</h3>
+              <span>Active budgets</span>
+            </div>
+            <div id="budgetBurnRate" class="progress-list"></div>
+          </article>
+
+          <article class="glass-card">
+            <div class="section-head">
+              <h3>Net Worth</h3>
+              <button class="btn btn-small" id="netWorthBtn">Manage</button>
+            </div>
+            <h3 id="netWorthValue">₹0</h3>
+            <p class="muted" id="netWorthMeta">Assets minus liabilities</p>
+          </article>
+
+          <article class="glass-card">
+            <div class="section-head">
+              <h3>50/30/20 Rule</h3>
+              <span id="ruleStatus">Analyzing</span>
+            </div>
+            <div id="ruleAnalyzer" class="rule-analyzer"></div>
+          </article>
+        </div>
+
+        <footer class="quote-footer">
+          <span>💡</span>
+          <p id="financeQuote">Loading quote...</p>
+        </footer>
+      </section>
+
+      <!-- TRANSACTIONS -->
+      <section class="page" id="page-transactions">
+        <div class="page-header-row">
+          <div>
+            <p class="eyebrow">Money Movement</p>
+            <h3>Transactions</h3>
+          </div>
+          <div class="row-actions">
+            <label class="btn">
+              Import CSV
+              <input type="file" id="csvInput" accept=".csv" hidden />
+            </label>
+            <label class="btn">
+              OCR Bill Scanner
+              <input type="file" id="ocrInput" accept="image/*" hidden />
+            </label>
+            <button class="btn btn-primary" id="openTransactionModalBtn">+ New Transaction</button>
+          </div>
+        </div>
+
+        <div class="filters-panel glass-card">
+          <input type="search" id="transactionSearch" placeholder="Search merchant, note, tag..." />
+          <select id="filterType">
+            <option value="all">All Types</option>
+            <option value="income">Income</option>
+            <option value="expense">Expense</option>
+          </select>
+          <select id="filterCategory">
+            <option value="all">All Categories</option>
+          </select>
+          <input type="date" id="filterStartDate" />
+          <input type="date" id="filterEndDate" />
+          <input type="number" id="filterMinAmount" placeholder="Min ₹" />
+          <input type="number" id="filterMaxAmount" placeholder="Max ₹" />
+          <button class="btn" id="clearFiltersBtn">Clear</button>
+        </div>
+
+        <div id="ocrResultCard" class="ocr-result hidden"></div>
+
+        <div class="glass-card table-card">
+          <div class="table-toolbar">
+            <strong id="transactionCount">0 transactions</strong>
+            <button class="btn btn-danger" id="bulkDeleteBtn">Delete Selected</button>
+          </div>
+          <div class="transaction-table-wrap">
+            <table class="transaction-table">
+              <thead>
+                <tr>
+                  <th><input type="checkbox" id="selectAllTransactions" /></th>
+                  <th>Transaction</th>
+                  <th>Category</th>
+                  <th>Amount</th>
+                  <th>Date</th>
+                  <th>Method</th>
+                  <th>Tags</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody id="transactionTableBody"></tbody>
+            </table>
+          </div>
+        </div>
+      </section>
+
+      <!-- ANALYTICS -->
+      <section class="page" id="page-analytics">
+        <div class="page-header-row">
+          <div>
+            <p class="eyebrow">Spending Intelligence</p>
+            <h3>Analytics</h3>
+          </div>
+          <button class="btn" id="exportAnalyticsPngBtn">Export Chart PNG</button>
+        </div>
+
+        <div class="analytics-grid">
+          <article class="glass-card wide-card">
+            <div class="section-head">
+              <h3>Monthly Spending Heatmap</h3>
+              <span>Daily intensity</span>
+            </div>
+            <div id="spendingHeatmap" class="heatmap"></div>
+          </article>
+
+          <article class="glass-card">
+            <div class="section-head">
+              <h3>Category Donut</h3>
+              <span>Expense split</span>
+            </div>
+            <div id="categoryDonut" class="chart-box"></div>
+          </article>
+
+          <article class="glass-card wide-card">
+            <div class="section-head">
+              <h3>Income vs Expense</h3>
+              <span>Last 6 months</span>
+            </div>
+            <canvas id="incomeExpenseChart"></canvas>
+          </article>
+
+          <article class="glass-card wide-card">
+            <div class="section-head">
+              <h3>Spending Trend</h3>
+              <span>Current month</span>
+            </div>
+            <div id="trendLineChart" class="chart-box"></div>
+          </article>
+
+          <article class="glass-card">
+            <div class="section-head">
+              <h3>Day Pattern</h3>
+              <span>Radar chart</span>
+            </div>
+            <canvas id="dayPatternChart"></canvas>
+          </article>
+
+          <article class="glass-card">
+            <div class="section-head">
+              <h3>Compare Ranges</h3>
+              <span>Side-by-side</span>
+            </div>
+            <div class="compare-form">
+              <input type="date" id="rangeAStart" />
+              <input type="date" id="rangeAEnd" />
+              <input type="date" id="rangeBStart" />
+              <input type="date" id="rangeBEnd" />
+              <button class="btn" id="compareRangesBtn">Compare</button>
+            </div>
+            <div id="rangeCompareResult"></div>
+          </article>
+        </div>
+      </section>
+
+      <!-- BUDGET -->
+      <section class="page" id="page-budget">
+        <div class="page-header-row">
+          <div>
+            <p class="eyebrow">Budget Control</p>
+            <h3>Budget Manager</h3>
+          </div>
+          <button class="btn btn-primary" id="addBudgetBtn">+ Add Budget</button>
+        </div>
+
+        <div class="glass-card">
+          <div id="budgetList" class="budget-list"></div>
+        </div>
+
+        <div class="glass-card">
+          <div class="section-head">
+            <h3>Budget History</h3>
+            <span>Past performance</span>
+          </div>
+          <div id="budgetHistory" class="budget-history"></div>
+        </div>
+      </section>
+
+      <!-- GOALS -->
+      <section class="page" id="page-goals">
+        <div class="page-header-row">
+          <div>
+            <p class="eyebrow">Future Planning</p>
+            <h3>Savings Goals</h3>
+          </div>
+          <button class="btn btn-primary" id="addGoalBtn">+ New Goal</button>
+        </div>
+
+        <div id="goalsGrid" class="goals-grid"></div>
+      </section>
+
+      <!-- SUBSCRIPTIONS -->
+      <section class="page" id="page-subscriptions">
+        <div class="page-header-row">
+          <div>
+            <p class="eyebrow">Recurring Costs</p>
+            <h3>Subscription Tracker</h3>
+          </div>
+          <button class="btn btn-primary" id="addSubscriptionBtn">+ Add Subscription</button>
+        </div>
+
+        <div class="summary-grid">
+          <article class="stat-card">
+            <p>Monthly Cost</p>
+            <h3 id="subscriptionMonthlyTotal">₹0</h3>
+          </article>
+          <article class="stat-card">
+            <p>Yearly Cost</p>
+            <h3 id="subscriptionYearlyTotal">₹0</h3>
+          </article>
+          <article class="stat-card">
+            <p>% of Income</p>
+            <h3 id="subscriptionIncomeRatio">0%</h3>
+          </article>
+        </div>
+
+        <div class="glass-card">
+          <div class="section-head">
+            <h3>Upcoming This Month</h3>
+            <select id="subscriptionSort">
+              <option value="date">Sort by Date</option>
+              <option value="cost">Sort by Cost</option>
+              <option value="category">Sort by Category</option>
+            </select>
+          </div>
+          <div id="subscriptionList" class="subscription-list"></div>
+        </div>
+      </section>
+
+      <!-- REPORTS -->
+      <section class="page" id="page-reports">
+        <div class="page-header-row">
+          <div>
+            <p class="eyebrow">PDF Export</p>
+            <h3>Financial Reports</h3>
+          </div>
+        </div>
+
+        <div class="reports-grid">
+          <article class="glass-card report-card">
+            <h3>Export This Month</h3>
+            <p>Generate a complete branded PDF report for the current month.</p>
+            <button class="btn btn-primary" id="exportMonthReportBtn">Export This Month</button>
+          </article>
+
+          <article class="glass-card report-card">
+            <h3>Export Custom Range</h3>
+            <p>Select a custom date range and generate a detailed report.</p>
+            <input type="date" id="reportStartDate" />
+            <input type="date" id="reportEndDate" />
+            <button class="btn" id="exportCustomReportBtn">Export Custom Range</button>
+          </article>
+        </div>
+
+        <div id="reportLoading" class="loading-panel hidden">
+          <div class="spinner"></div>
+          <p>Generating your FinanceFlow PDF report...</p>
+        </div>
+      </section>
+
+      <!-- SETTINGS -->
+      <section class="page" id="page-settings">
+        <div class="page-header-row">
+          <div>
+            <p class="eyebrow">Personalization</p>
+            <h3>Settings</h3>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+          <article class="glass-card">
+            <h3>User Profile</h3>
+            <label>Name</label>
+            <input type="text" id="settingName" placeholder="Your name" />
+            <label>Avatar Emoji</label>
+            <input type="text" id="settingAvatar" maxlength="4" placeholder="🧑‍💻" />
+            <label>Monthly Income</label>
+            <input type="number" id="settingIncome" placeholder="50000" />
+            <button class="btn btn-primary" id="saveProfileBtn">Save Profile</button>
+          </article>
+
+          <article class="glass-card">
+            <h3>Currency & Theme</h3>
+            <label>Base Currency</label>
+            <select id="baseCurrencySelect"></select>
+
+            <label>App Theme</label>
+            <select id="themeSelect">
+              <option value="dark">Dark</option>
+              <option value="light">Light</option>
+              <option value="system">System</option>
+            </select>
+
+            <label>Language</label>
+            <select id="languageSelect">
+              <option value="en">English</option>
+            </select>
+
+            <button class="btn" id="savePreferencesBtn">Save Preferences</button>
+          </article>
+
+          <article class="glass-card">
+            <h3>Notifications</h3>
+            <label class="toggle-row">
+              <span>Budget warnings</span>
+              <input type="checkbox" id="notifyBudget" />
+            </label>
+            <label class="toggle-row">
+              <span>Bill reminders</span>
+              <input type="checkbox" id="notifyBills" />
+            </label>
+            <label class="toggle-row">
+              <span>Weekly summary</span>
+              <input type="checkbox" id="notifyWeekly" />
+            </label>
+          </article>
+
+          <article class="glass-card">
+            <h3>Category Manager</h3>
+            <div id="categoryManager" class="category-manager"></div>
+            <div class="inline-form">
+              <input type="text" id="newCategoryName" placeholder="Category name" />
+              <input type="text" id="newCategoryEmoji" placeholder="Emoji" maxlength="4" />
+              <input type="color" id="newCategoryColor" value="#4F8EF7" />
+              <button class="btn" id="addCategoryBtn">Add</button>
+            </div>
+          </article>
+
+          <article class="glass-card">
+            <h3>Data Management</h3>
+            <div class="button-stack">
+              <button class="btn" id="exportJsonBtn">Export All Data JSON</button>
+              <label class="btn">
+                Import JSON
+                <input type="file" id="importJsonInput" accept=".json" hidden />
+              </label>
+              <button class="btn" id="resetDemoBtn">Reset to Demo Data</button>
+              <button class="btn btn-danger" id="clearDataBtn">Clear All Data</button>
+            </div>
+          </article>
+
+          <article class="glass-card">
+            <h3>About FinanceFlow</h3>
+            <p class="muted">Version 1.0.0</p>
+            <ul class="changelog">
+              <li>Smart finance dashboard</li>
+              <li>Budget intelligence engine</li>
+              <li>PDF reports and sync simulation</li>
+              <li>Offline-first localStorage app</li>
+            </ul>
+          </article>
+        </div>
+      </section>
+    </main>
+
+    <!-- MOBILE NAV -->
+    <nav class="mobile-tabbar" aria-label="Mobile navigation">
+      <button class="mobile-tab active" data-page="dashboard">🏠<span>Home</span></button>
+      <button class="mobile-tab" data-page="transactions">💸<span>Txns</span></button>
+      <button class="mobile-tab" data-page="analytics">📊<span>Stats</span></button>
+      <button class="mobile-tab" data-page="budget">💰<span>Budget</span></button>
+      <button class="mobile-tab" data-page="settings">⚙️<span>More</span></button>
+    </nav>
+
+    <!-- FLOATING ACTION BUTTON -->
+    <button class="fab" id="quickAddFab" title="Quick add transaction">+</button>
+
+    <!-- NOTIFICATION DRAWER -->
+    <aside class="notification-drawer" id="notificationDrawer">
+      <div class="drawer-head">
+        <h3>Notifications</h3>
+        <button class="icon-btn" id="closeNotificationDrawer">✕</button>
+      </div>
+      <div id="notificationList" class="notification-list"></div>
+    </aside>
+
+    <!-- CURRENCY CONVERTER DRAWER -->
+    <aside class="currency-drawer" id="currencyDrawer">
+      <div class="drawer-head">
+        <h3>Currency Converter</h3>
+        <button class="icon-btn" id="closeCurrencyDrawer">✕</button>
+      </div>
+
+      <p class="muted">Rates are approximate and static for offline use.</p>
+
+      <input type="number" id="currencyAmount" placeholder="Amount" value="1000" />
+
+      <div class="currency-row">
+        <select id="currencyFrom"></select>
+        <button class="swap-btn" id="swapCurrencyBtn">⇄</button>
+        <select id="currencyTo"></select>
+      </div>
+
+      <div class="converter-result" id="currencyResult">₹0</div>
+    </aside>
+
+    <!-- GENERIC MODAL -->
+    <div class="modal-backdrop hidden" id="modalBackdrop">
+      <div class="modal" id="modal">
+        <div class="modal-head">
+          <h3 id="modalTitle">Modal</h3>
+          <button class="icon-btn" id="closeModalBtn">✕</button>
+        </div>
+        <div id="modalBody" class="modal-body"></div>
+      </div>
+    </div>
+
+    <!-- TOAST CONTAINER -->
+    <div class="toast-container" id="toastContainer"></div>
+
+    <!-- SAVED INDICATOR -->
+    <div class="saved-indicator" id="savedIndicator">Saved</div>
+
+    <!-- CHART TOOLTIP -->
+    <div class="chart-tooltip" id="chartTooltip"></div>
+  </div>
+
+  <!-- JavaScript Files -->
+  <script type="module" src="js/app.js"></script>
+</body>
+</html>

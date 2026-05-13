@@ -1,0 +1,510 @@
+/* =========================================================
+   FinanceFlow — Dashboard Styles
+   File: css/dashboard.css
+   ========================================================= */
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 16px;
+}
+
+.dashboard-grid .glass-card {
+  min-height: 230px;
+}
+
+.score-card,
+.insight-card {
+  grid-column: span 2;
+}
+
+/* ---------- Finance Score Gauge ---------- */
+.score-gauge-wrap {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-height: 170px;
+}
+
+.score-gauge {
+  width: min(280px, 100%);
+  height: 175px;
+  overflow: visible;
+}
+
+.gauge-bg,
+.gauge-fill {
+  fill: none;
+  stroke-width: 18;
+  stroke-linecap: round;
+}
+
+.gauge-bg {
+  stroke: rgba(255, 255, 255, 0.12);
+}
+
+.gauge-fill {
+  stroke: var(--green);
+  stroke-dasharray: 255;
+  stroke-dashoffset: 255;
+  filter: drop-shadow(0 0 12px rgba(0, 255, 178, 0.45));
+  transition: stroke-dashoffset 900ms ease, stroke 400ms ease;
+}
+
+.score-value {
+  position: absolute;
+  top: 70px;
+  text-align: center;
+}
+
+.score-value strong {
+  display: block;
+  font-size: 3.1rem;
+  line-height: 1;
+  letter-spacing: -0.08em;
+}
+
+.score-value span {
+  display: inline-flex;
+  margin-top: 8px;
+  padding: 7px 12px;
+  border-radius: 999px;
+  background: rgba(0, 255, 178, 0.12);
+  color: var(--green);
+  font-size: 0.78rem;
+  font-weight: 900;
+}
+
+/* ---------- AI Insights ---------- */
+.ai-banner {
+  min-height: 82px;
+  display: flex;
+  align-items: center;
+  padding: 18px;
+  border: 1px solid rgba(79, 142, 247, 0.25);
+  border-radius: var(--radius-lg);
+  background:
+    radial-gradient(circle at top left, rgba(79, 142, 247, 0.22), transparent 42%),
+    linear-gradient(135deg, rgba(79, 142, 247, 0.14), rgba(124, 58, 237, 0.14));
+  color: var(--text);
+  font-size: 1rem;
+  font-weight: 850;
+  line-height: 1.45;
+  box-shadow: var(--glow-blue);
+  animation: bannerFloat 4s ease-in-out infinite;
+}
+
+@keyframes bannerFloat {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-3px);
+  }
+}
+
+.insight-list {
+  display: grid;
+  gap: 10px;
+  margin-top: 14px;
+  max-height: 250px;
+  overflow: auto;
+  padding-right: 4px;
+}
+
+.insight-item {
+  display: grid;
+  grid-template-columns: 36px 1fr 30px;
+  gap: 10px;
+  align-items: start;
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+  animation: insightIn 260ms ease both;
+}
+
+@keyframes insightIn {
+  from {
+    opacity: 0;
+    transform: translateY(8px) scale(0.98);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.insight-icon {
+  width: 36px;
+  height: 36px;
+  display: grid;
+  place-items: center;
+  border-radius: 14px;
+  background: var(--surface);
+  font-size: 1.1rem;
+}
+
+.insight-item strong {
+  display: block;
+  margin-bottom: 3px;
+  font-size: 0.9rem;
+}
+
+.insight-item p {
+  margin: 0;
+  color: var(--text-soft);
+  font-size: 0.8rem;
+  line-height: 1.35;
+}
+
+.insight-dismiss {
+  border: 0;
+  background: transparent;
+  color: var(--muted);
+}
+
+/* ---------- Mini Lists ---------- */
+.mini-row {
+  display: grid;
+  grid-template-columns: 38px 1fr auto;
+  gap: 10px;
+  align-items: center;
+  padding: 11px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+  transition: transform var(--ease), border-color var(--ease);
+}
+
+.mini-row:hover {
+  transform: translateY(-2px);
+  border-color: var(--border-strong);
+}
+
+.mini-icon {
+  width: 38px;
+  height: 38px;
+  border-radius: 15px;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  font-size: 1.1rem;
+}
+
+.mini-row strong {
+  display: block;
+  font-size: 0.9rem;
+}
+
+.mini-row small {
+  color: var(--muted);
+  font-weight: 700;
+}
+
+.mini-amount {
+  font-weight: 950;
+  letter-spacing: -0.03em;
+}
+
+/* ---------- Top Categories Bars ---------- */
+.category-bar-card {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.category-bar-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.category-bar-name {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 900;
+}
+
+.category-bar-value {
+  color: var(--text-soft);
+  font-weight: 900;
+  font-size: 0.84rem;
+}
+
+.bar-track,
+.progress-track {
+  width: 100%;
+  height: 10px;
+  overflow: hidden;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.bar-fill,
+.progress-fill {
+  width: 0%;
+  height: 100%;
+  border-radius: inherit;
+  background: var(--gradient-main);
+  transition: width 900ms cubic-bezier(0.2, 0.8, 0.2, 1);
+}
+
+/* ---------- Budget Burn Rate ---------- */
+.budget-burn-item {
+  padding: 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.budget-burn-top {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 8px;
+  gap: 12px;
+}
+
+.budget-burn-top strong {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.budget-burn-top span {
+  color: var(--muted);
+  font-size: 0.82rem;
+  font-weight: 900;
+}
+
+.progress-fill.good {
+  background: var(--gradient-green);
+}
+
+.progress-fill.warn {
+  background: linear-gradient(135deg, var(--yellow), var(--orange));
+}
+
+.progress-fill.danger {
+  background: var(--gradient-red);
+}
+
+/* ---------- Net Worth ---------- */
+#netWorthValue {
+  margin: 8px 0 8px;
+  font-size: 2.4rem;
+  letter-spacing: -0.07em;
+}
+
+.net-worth-list {
+  display: grid;
+  gap: 10px;
+}
+
+.net-worth-row {
+  display: grid;
+  grid-template-columns: 1fr 110px 34px;
+  gap: 10px;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.net-worth-row button {
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 12px;
+  background: rgba(255, 71, 87, 0.14);
+  color: var(--red);
+}
+
+/* ---------- 50/30/20 Analyzer ---------- */
+.rule-analyzer {
+  display: grid;
+  gap: 10px;
+}
+
+.rule-row {
+  display: grid;
+  grid-template-columns: 76px 1fr 54px;
+  gap: 10px;
+  align-items: center;
+}
+
+.rule-label {
+  font-weight: 900;
+  color: var(--text-soft);
+  font-size: 0.82rem;
+}
+
+.rule-percent {
+  text-align: right;
+  font-weight: 950;
+}
+
+.rule-track {
+  height: 12px;
+  border-radius: 999px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.09);
+}
+
+.rule-fill {
+  height: 100%;
+  width: 0%;
+  border-radius: inherit;
+  transition: width 900ms ease;
+}
+
+.rule-fill.needs {
+  background: var(--blue);
+}
+
+.rule-fill.wants {
+  background: var(--violet);
+}
+
+.rule-fill.savings {
+  background: var(--green);
+}
+
+/* ---------- Streak Badge ---------- */
+.streak-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  margin-top: 12px;
+  padding: 10px 13px;
+  border: 1px solid rgba(255, 209, 102, 0.28);
+  border-radius: 999px;
+  background: rgba(255, 209, 102, 0.12);
+  color: var(--yellow);
+  font-weight: 950;
+  box-shadow: 0 0 22px rgba(255, 209, 102, 0.14);
+}
+
+/* ---------- Quote Footer ---------- */
+.quote-footer {
+  margin-top: 18px;
+  min-height: 72px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 18px 20px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-xl);
+  background:
+    linear-gradient(135deg, rgba(79, 142, 247, 0.12), rgba(124, 58, 237, 0.12)),
+    var(--surface);
+  box-shadow: var(--shadow-soft);
+}
+
+.quote-footer span {
+  width: 42px;
+  height: 42px;
+  border-radius: 16px;
+  display: grid;
+  place-items: center;
+  background: var(--surface);
+  font-size: 1.25rem;
+}
+
+.quote-footer p {
+  margin: 0;
+  color: var(--text-soft);
+  font-weight: 850;
+  line-height: 1.45;
+  transition: opacity 250ms ease;
+}
+
+/* ---------- Score Breakdown Modal ---------- */
+.score-breakdown {
+  display: grid;
+  gap: 14px;
+}
+
+.score-factor {
+  padding: 13px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface-soft);
+}
+
+.score-factor-top {
+  display: flex;
+  justify-content: space-between;
+  gap: 12px;
+  margin-bottom: 9px;
+}
+
+.score-factor-top strong {
+  font-size: 0.92rem;
+}
+
+.score-factor-top span {
+  color: var(--muted);
+  font-weight: 900;
+}
+
+.score-tip {
+  margin: 12px 0 0;
+  color: var(--text-soft);
+  font-size: 0.86rem;
+  line-height: 1.45;
+}
+
+/* ---------- Upcoming Bills ---------- */
+.bill-date-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 62px;
+  padding: 7px 10px;
+  border-radius: 999px;
+  background: rgba(79, 142, 247, 0.12);
+  color: var(--blue);
+  font-size: 0.78rem;
+  font-weight: 950;
+}
+
+/* ---------- Celebration Badge ---------- */
+.power-badge {
+  position: fixed;
+  left: 50%;
+  top: 24px;
+  transform: translateX(-50%);
+  z-index: 250;
+  padding: 13px 18px;
+  border-radius: 999px;
+  background: var(--gradient-main);
+  color: white;
+  font-weight: 950;
+  box-shadow: var(--glow-blue), var(--shadow-soft);
+  animation: powerBadgeIn 2.4s ease both;
+}
+
+@keyframes powerBadgeIn {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, -20px) scale(0.9);
+  }
+
+  14%,
+  82% {
+    opacity: 1;
+    transform: translate(-50%, 0) scale(1);
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -12px) scale(0.96);
+  }
+}
