@@ -1,4 +1,4 @@
-# FinanceFlow HQ 💸
+# FinanceFlow 
 
 A modern personal finance intelligence platform designed to help users track spending, manage budgets, monitor subscriptions, analyze financial habits, and make smarter money decisions through an intuitive fintech-style dashboard experience.
 
